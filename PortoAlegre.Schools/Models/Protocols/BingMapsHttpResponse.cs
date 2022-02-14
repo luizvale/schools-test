@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PortoAlegre.Schools.Models.Protocols
+namespace PortoAlegre.Schools.Models.Protocols.BingMaps
 {
     public partial class BingMapsHttpResponse
     {

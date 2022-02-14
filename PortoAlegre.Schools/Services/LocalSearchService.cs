@@ -1,16 +1,19 @@
 ﻿using PortoAlegre.Schools.Models;
-using PortoAlegre.Schools.Externals.Clients.Interfaces;
 using PortoAlegre.Schools.Services.Interfaces;
 using PortoAlegre.Schools.Models.Domain;
+using PortoAlegre.Schools.Externals.Clients;
+using PortoAlegre.Schools.Externals.Clients.Interfaces;
 
 namespace PortoAlegre.Schools.Services
 {
     public class LocalSearchService : ILocalSearchSercice
     {
+        public readonly IRouteClient RouteClient;
         public readonly IBingMapsClient BingMapsClient;
         public readonly ISchoolService SchoolService;
-        public LocalSearchService(IBingMapsClient bingMapsClient, ISchoolService schoolService)
+        public LocalSearchService(IRouteClient routeClient, IBingMapsClient bingMapsClient, ISchoolService schoolService)
         {
+            RouteClient = routeClient;
             BingMapsClient = bingMapsClient;
             SchoolService = schoolService;
         }
@@ -57,7 +60,7 @@ namespace PortoAlegre.Schools.Services
 
         public async Task<List<double[]>> GetRoute(double[] coordinates, double[] destiny)
         {
-            var Distances = await BingMapsClient.GetRoute(coordinates, destiny);
+            var Distances = await RouteClient.GetRoute(coordinates, destiny);
 
             return Distances;
         }

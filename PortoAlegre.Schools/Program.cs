@@ -25,6 +25,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<ISchoolsRepository, SchoolsRepository>();
 builder.Services.AddScoped<ISchoolClient, SchoolClient>();
+builder.Services.AddScoped<IRouteClient, RouteClient>();
 builder.Services.AddScoped<IBingMapsClient, BingMapsClient>();
 builder.Services.AddScoped<ISchoolService, SchoolService>();
 builder.Services.AddScoped<ILocalSearchSercice, LocalSearchService>();
