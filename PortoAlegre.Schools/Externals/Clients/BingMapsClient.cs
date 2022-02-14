@@ -2,7 +2,6 @@
 using PortoAlegre.BingMaps.Config;
 using PortoAlegre.Schools.Externals.Clients.Interfaces;
 using PortoAlegre.Schools.Models;
-using PortoAlegre.Schools.Models.Protocols;
 using PortoAlegre.Schools.Models.Protocols.BingMaps;
 using System.Net.Http.Headers;
 using System.Text;

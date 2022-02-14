@@ -1,4 +1,4 @@
-﻿namespace PortoAlegre.Schools.Externals.Clients
+﻿namespace PortoAlegre.Schools.Externals.Clients.Interfaces
 {
     public interface IRouteClient
     {

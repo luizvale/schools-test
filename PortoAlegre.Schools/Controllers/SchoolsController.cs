@@ -33,6 +33,7 @@ namespace PortoAlegre.Schools.Controllers
         [HttpPost("ordered")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(School))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ListSchoolsByDistance([FromBody] Address address)
         {
             if (address.Nome == null
@@ -43,14 +44,20 @@ namespace PortoAlegre.Schools.Controllers
 
             var schools = await LocalSearchService.ListSchoolsByDistance(address);
 
+            if (schools is null)
+                NotFound();
+
             return StatusCode(200, schools);
         }
 
         [HttpPost("route")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<double[]>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetRouteBetweenSchools([FromBody] Itinerary itinerary)
         {
+            if (itinerary.Origin is null || itinerary.Destiny is null)
+                return StatusCode(400);
             var route = await LocalSearchService.GetRoute(itinerary.Origin, itinerary.Destiny);
 
             if(route == null)

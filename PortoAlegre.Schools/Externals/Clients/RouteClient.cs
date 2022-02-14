@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using PortoAlegre.BingMaps.Config;
+using PortoAlegre.Schools.Externals.Clients.Interfaces;
 using PortoAlegre.Schools.Models.Protocols.Route;
 using System.Text.Json;
 
