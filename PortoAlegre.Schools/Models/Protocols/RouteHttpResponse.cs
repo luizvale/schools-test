@@ -1,4 +1,6 @@
-﻿namespace PortoAlegre.Schools.Models.Protocols
+﻿using System.Text.Json.Serialization;
+
+namespace PortoAlegre.Schools.Models.Protocols
 {
     public partial class RouteHttpResponse
     {
@@ -10,7 +12,7 @@
 
     public partial class ResourceSet
     {
-        public List<Resource> RouteResources { get; set; }
+        public List<Resource> Resources { get; set; }
     }
 
     public partial class Resource

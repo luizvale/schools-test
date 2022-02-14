@@ -19,10 +19,14 @@ namespace PortoAlegre.Schools.Controllers
 
         [HttpGet("list")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(School))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get()
         {
             var listSchools = await SchoolService.GetList();
+
+            if (listSchools == null)
+                return NotFound();
+
             return StatusCode(200, listSchools);
         }
 
@@ -31,16 +35,27 @@ namespace PortoAlegre.Schools.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ListSchoolsByDistance([FromBody] Address address)
         {
+            if (address.Nome == null
+                || address.Cep == null
+                || address.Bairro == null
+                )
+                return StatusCode(400);
+
             var schools = await LocalSearchService.ListSchoolsByDistance(address);
+
             return StatusCode(200, schools);
         }
 
         [HttpPost("route")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<double[]>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRouteBetweenSchools([FromBody] Itinerary itinerary)
         {
             var route = await LocalSearchService.GetRoute(itinerary.Origin, itinerary.Destiny);
+
+            if(route == null)
+                return NotFound();
+
             return StatusCode(200, route);
         }
     }

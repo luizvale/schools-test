@@ -5,7 +5,7 @@ namespace PortoAlegre.Schools.Models.Protocols
     public partial class BingMapsHttpResponse
     {
         [JsonPropertyName("resourceSets")]
-        public ResourceSet[] ResourceSets { get; set; }
+        public ResourceSet[] resourceSets { get; set; }
 
         [JsonPropertyName("statusDescription")]
         public string StatusDescription { get; set; }
@@ -17,7 +17,7 @@ namespace PortoAlegre.Schools.Models.Protocols
     public partial class ResourceSet
     {
         [JsonPropertyName("resources")]
-        public Resource[] Resources { get; set; }
+        public Resource[] resources { get; set; }
     }
 
     public partial class Resource

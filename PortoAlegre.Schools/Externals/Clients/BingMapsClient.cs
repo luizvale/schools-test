@@ -3,7 +3,6 @@ using PortoAlegre.BingMaps.Config;
 using PortoAlegre.Schools.Externals.Clients.Interfaces;
 using PortoAlegre.Schools.Models;
 using PortoAlegre.Schools.Models.Protocols;
-using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -40,11 +39,12 @@ namespace PortoAlegre.Schools.Externals.Clients
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
+
                 using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
                 var SchoolsList = await JsonSerializer.DeserializeAsync<BingMapsHttpResponse>(contentStream);
 
-                return SchoolsList!.ResourceSets.FirstOrDefault()!.Resources.FirstOrDefault()!.Results;
+                return SchoolsList!.resourceSets.FirstOrDefault()!.resources.FirstOrDefault()!.Results;
             }
 
             else
@@ -69,7 +69,12 @@ namespace PortoAlegre.Schools.Externals.Clients
             {
                 using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                var route = await JsonSerializer.DeserializeAsync<RouteHttpResponse>(contentStream);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var route = await JsonSerializer.DeserializeAsync<RouteHttpResponse>(contentStream, options);
                 var routeCoordinates = route!.ResourceSets.First()
                     .Resources.First()
                     .RouteLegs.First()

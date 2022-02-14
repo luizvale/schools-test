@@ -6,10 +6,11 @@ using PortoAlegre.Schools.Externals.Clients.Interfaces;
 using PortoAlegre.Schools.Repository;
 using PortoAlegre.Schools.Services;
 using PortoAlegre.Schools.Services.Interfaces;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.Configure<SchoolClientConfig>(
     builder.Configuration.GetSection(SchoolClientConfig.Client));
@@ -53,34 +54,21 @@ builder.Services.AddSwaggerGen(options =>
         Description = "O cadastro das escolas traz informações relativas às escolas da rede própria e conveniada, " +
         "tais como: nome, endereço, telefone, bairro, região do OP a que pertence a escola, região do Conselho Tutelar, " +
         "situação de credenciamento, mantenedora da escola, dependência administrativa entre outros.",
-
-        TermsOfService = new Uri("http://www2.portoalegre.rs.gov.br/transparencia/"),
-        Contact = new OpenApiContact
-        {
-            Name = "SIE - Sistema de Informações Educacionais",
-            Url = new Uri("http://datapoa.com.br/")
-        }
     });
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        options.RoutePrefix = string.Empty;
-    });
-}
-else
-{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
 
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+
+if (app.Environment.IsProduction())
+{
 }
 
 app.UseHttpsRedirection();
