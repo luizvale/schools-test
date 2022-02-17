@@ -1,4 +1,4 @@
-﻿using PortoAlegre.Schools.Models;
+﻿using PortoAlegre.Schools.Models.Domain;
 using System;
 using System.Globalization;
 

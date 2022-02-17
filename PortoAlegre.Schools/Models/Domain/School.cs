@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PortoAlegre.Schools.Models
+namespace PortoAlegre.Schools.Models.Domain
 {
     public class School
     {
-        public School(){ }
+        public School() { }
 
         [JsonPropertyName("_id")]
         public int Id { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace PortoAlegre.Schools.Config
+﻿namespace PortoAlegre.Schools.Config.Models
 {
     public class SchoolClientConfig
     {

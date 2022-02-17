@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using PortoAlegre.Schools.Config;
+using PortoAlegre.Schools.Config.Models;
 using PortoAlegre.Schools.Externals.Clients.Interfaces;
-using PortoAlegre.Schools.Models;
+using PortoAlegre.Schools.Models.Domain;
+using PortoAlegre.Schools.Models.Protocols;
 using System.Text.Json;
 
 namespace PortoAlegre.Schools.Externals.Clients
@@ -17,7 +18,7 @@ namespace PortoAlegre.Schools.Externals.Clients
             _httpClientFactory = httpClientFactory;
             _clientConfig = clientConfig.Value;
         }
-        public async Task<List<School>> OnGet(string sql)
+        public async Task<List<School>> OnGet()
         {
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, _clientConfig.ApiConnection)
             {
@@ -40,7 +41,7 @@ namespace PortoAlegre.Schools.Externals.Clients
                     PropertyNameCaseInsensitive = true
                 };
 
-                var SchoolsList = await JsonSerializer.DeserializeAsync<Models.Protocols.SchoolHttpResponse>(contentStream, options);
+                var SchoolsList = await JsonSerializer.DeserializeAsync<SchoolsHttpResponse>(contentStream, options);
 
                 return SchoolsList!.Result.Records;
             }

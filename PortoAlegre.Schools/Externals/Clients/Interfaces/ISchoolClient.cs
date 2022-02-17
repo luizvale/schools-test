@@ -1,9 +1,9 @@
-﻿using PortoAlegre.Schools.Models;
+﻿using PortoAlegre.Schools.Models.Domain;
 
 namespace PortoAlegre.Schools.Externals.Clients.Interfaces
 {
     public interface ISchoolClient
     {
-        Task<List<School>> OnGet(string sql);
+        Task<List<School>> OnGet();
     }
 }

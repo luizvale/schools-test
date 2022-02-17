@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
-using PortoAlegre.BingMaps.Config;
+using PortoAlegre.Schools.Config.Models;
 using PortoAlegre.Schools.Externals.Clients.Interfaces;
-using PortoAlegre.Schools.Models.Protocols.Route;
+using PortoAlegre.Schools.Models.Protocols;
+using System.Text;
 using System.Text.Json;
 
 namespace PortoAlegre.Schools.Externals.Clients
@@ -19,7 +20,6 @@ namespace PortoAlegre.Schools.Externals.Clients
 
         public async Task<List<double[]>> GetRoute(double[] coordinates, double[] destiny)
         {
-
             var url = $"{_clientConfig.RouteEndpoint}" +
                       $"?wp.0={coordinates[0]},{coordinates[1]}&wp.1={destiny[0]},{destiny[1]}&key={_clientConfig.Key}";
 
@@ -55,5 +55,38 @@ namespace PortoAlegre.Schools.Externals.Clients
             }
         }
 
+        public async Task<byte[]> ReturnMap(double[] coordinates, double[] destiny)
+        {
+            var url = $"{_clientConfig.RouteEndpoint}" +
+          $"?wp.0={coordinates[0]},{coordinates[1]}&wp.1={destiny[0]},{destiny[1]}&key={_clientConfig.Key}";
+
+            var httpClient = _httpClientFactory.CreateClient();
+            var httpResponseMessage = await httpClient.GetAsync(url);
+
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                StreamReader reader = new(contentStream);
+                string text = reader.ReadToEnd();
+                byte[] bytes = Encoding.ASCII.GetBytes(text);
+
+                return bytes;
+            }
+
+            else
+            {
+                throw new Exception(
+                    $"StatusCode: {httpResponseMessage.StatusCode}; " +
+                    $"Message: {httpResponseMessage.ReasonPhrase}"
+                    );
+            }
+
+        }
     }
+
 }

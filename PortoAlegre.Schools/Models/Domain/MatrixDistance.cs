@@ -1,4 +1,4 @@
-﻿namespace PortoAlegre.Schools.Models
+﻿namespace PortoAlegre.Schools.Models.Domain
 {
     public class MatrixDistance
     {

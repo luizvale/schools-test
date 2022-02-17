@@ -1,7 +1,5 @@
-﻿using PortoAlegre.Schools.Models;
-using PortoAlegre.Schools.Services.Interfaces;
+﻿using PortoAlegre.Schools.Services.Interfaces;
 using PortoAlegre.Schools.Models.Domain;
-using PortoAlegre.Schools.Externals.Clients;
 using PortoAlegre.Schools.Externals.Clients.Interfaces;
 
 namespace PortoAlegre.Schools.Services
@@ -63,6 +61,12 @@ namespace PortoAlegre.Schools.Services
             var Distances = await RouteClient.GetRoute(coordinates, destiny);
 
             return Distances;
+        }
+
+        public async Task<byte[]> GetMap(double[] destiny, double[] origin)
+        {
+            byte[] map = await RouteClient.ReturnMap(destiny, origin);
+            return map;
         }
     }
 }

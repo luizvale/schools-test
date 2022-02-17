@@ -101,7 +101,7 @@
                 "description": null,
                 "subscriptionRequired": true,
                 "serviceUrl": null,
-                "path": "schooltestapi",
+                "path": "",
                 "protocols": [
                   "https"
                 ],

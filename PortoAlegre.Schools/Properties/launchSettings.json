@@ -12,7 +12,9 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://localsearch-api.vault.azure.net/",
+        "AZURE_USERNAME": "luiz.vale1995@gmail.com"
       },
       "applicationUrl": "https://localhost:7061;http://localhost:5061",
       "dotnetRunMessages": true
@@ -21,7 +23,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://localsearch-api.vault.azure.net/",
+        "AZURE_USERNAME": "luiz.vale1995@gmail.com"
       }
     },
     "Docker": {
@@ -29,7 +33,11 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": true,
+      "environmentVariables": {
+        "VaultUri": "https://localsearch-api.vault.azure.net/",
+        "AZURE_USERNAME": "luiz.vale1995@gmail.com"
+      }
     }
   }
 }

@@ -1,3 +1,13 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "secrets1": {
+      "ignored": "true",
+      "suggestion": "true",
+      "type": "secrets",
+      "connectionId": ""
+    },
+    "appInsights1": {
+      "type": "appInsights.sdk"
+    }
+  }
 }

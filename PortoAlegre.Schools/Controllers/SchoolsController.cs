@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PortoAlegre.Schools.Models;
 using PortoAlegre.Schools.Models.Domain;
 using PortoAlegre.Schools.Services.Interfaces;
 
@@ -11,6 +10,7 @@ namespace PortoAlegre.Schools.Controllers
     {
         public readonly ISchoolService SchoolService;
         public readonly ILocalSearchSercice LocalSearchService;
+
         public SchoolsController(ISchoolService schoolService, ILocalSearchSercice localsearchService)
         {
             SchoolService = schoolService;
@@ -58,6 +58,7 @@ namespace PortoAlegre.Schools.Controllers
         {
             if (itinerary.Origin is null || itinerary.Destiny is null)
                 return StatusCode(400);
+
             var route = await LocalSearchService.GetRoute(itinerary.Origin, itinerary.Destiny);
 
             if(route == null)
@@ -65,6 +66,35 @@ namespace PortoAlegre.Schools.Controllers
 
             return StatusCode(200, route);
         }
+
+
+
+        [HttpPost("Ping")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<double[]>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Ping([FromBody] string ping)
+        {
+            return StatusCode(200, "pong !");
+        }
+
+        [HttpPost("map")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<double[]>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetMapRoute([FromBody] Itinerary itinerary)
+        {
+            if (itinerary.Origin is null || itinerary.Destiny is null)
+                return StatusCode(400);
+
+            var map = await LocalSearchService.GetMap(itinerary.Origin, itinerary.Destiny);
+            var mapImg = File(map, "image/jpeg");
+            if (map == null)
+                return NotFound();
+
+            return StatusCode(200, mapImg);
+        }
+
     }
 
     public class Itinerary

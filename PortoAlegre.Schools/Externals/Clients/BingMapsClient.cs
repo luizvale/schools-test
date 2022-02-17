@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
-using PortoAlegre.BingMaps.Config;
+using PortoAlegre.Schools.Config.Models;
 using PortoAlegre.Schools.Externals.Clients.Interfaces;
-using PortoAlegre.Schools.Models;
-using PortoAlegre.Schools.Models.Protocols.BingMaps;
+using PortoAlegre.Schools.Models.Domain;
+using PortoAlegre.Schools.Models.Protocols;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -20,7 +20,7 @@ namespace PortoAlegre.Schools.Externals.Clients
             _clientConfig = clientConfig.Value;
         }
 
-        public async Task<List<Models.Protocols.BingMaps.BingMapsResult>> GetDistanceMatrix(MatrixDistance matrixDistance)
+        public async Task<List<BingMapsResult>> GetDistanceMatrix(MatrixDistance matrixDistance)
         {
             var matrixSerialized = JsonSerializer.Serialize(matrixDistance);
 

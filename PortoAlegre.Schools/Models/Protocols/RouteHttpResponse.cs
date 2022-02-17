@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PortoAlegre.Schools.Models.Protocols.Route
+namespace PortoAlegre.Schools.Models.Protocols
 {
     public partial class RouteHttpResponse
     {
